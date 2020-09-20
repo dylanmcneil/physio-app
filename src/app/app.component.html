@@ -2,15 +2,20 @@
   <div class="row">
     <div class="col-md-12 text-center">
       <h1>Physio App</h1>
-        <li class="list-inline-item" (click)="startPhysio()"><a class="btn btn-info">Start Physio</a></li>
-        <li class="list-inline-item" (click)="pausePhysio()"><a class="btn btn-info">Pause</a></li>
-        <h3 *ngIf="started && !complete || onGetReady">{{displayText}}: {{timeLeft}}s</h3>
-        <h3 *ngIf="started && !complete">Stretches completed: {{numberOfExercisesCompleted}}</h3>
-        <h3 *ngIf="started">Total time elapsed: {{totalTimeElapsedString}}</h3>
-        <p *ngIf="complete">Physio session done for today!</p>
-        <h2 *ngIf="stretching && started && !complete" style="color: green">STRETCH</h2>
-        <h2 *ngIf="!stretching && started && !complete" style="color: red">REST</h2>
-        <h2 *ngIf="onGetReady" style="color: purple">GET READY</h2>
+      <ul class="list-inline py-3">
+        <li class="list-inline-item" (click)="startPhysio()"><button class="btn btn-info" [disabled]="isStartButtonDisabled()" >{{state === 'NOT STARTED' ? 'Start Physio' : 'Resume'}}</button></li>
+        <li class="list-inline-item" (click)="pausePhysio()"><button class="btn btn-info" [disabled]="isPauseButtonDisabled()">Pause</button></li>
+      </ul>
+
+      <h3 *ngIf="started && !complete || onGetReady">{{displayText}}: {{timeLeft}}s</h3>
+      <h3 *ngIf="started && !complete">Stretches completed: {{numberOfExercisesCompleted}}</h3>
+      <h3 *ngIf="started">Total time elapsed: {{totalTimeElapsedString}}</h3>
+      <p *ngIf="complete">Physio session done for today!</p>
+      <h4 *ngIf="onGetReady || started">Finished by: {{finishedByTime}}</h4>
+      <h2 *ngIf="stretching && started && !complete" style="color: green">STRETCH</h2>
+      <h2 *ngIf="!stretching && started && !complete" style="color: red">REST</h2>
+      <h2 *ngIf="onGetReady" style="color: purple">GET READY</h2>
+      {{state}}
     </div>
   </div>
 </div>
